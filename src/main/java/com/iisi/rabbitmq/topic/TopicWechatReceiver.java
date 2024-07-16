@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @Service
 //監聽佇列
-@RabbitListener(bindings = @QueueBinding(value = @Queue(value = RabbitConfig.WECHAT_QUEUE, durable = "true"), exchange = @Exchange(name = "topic-order-exchange", durable = "true", type = ExchangeTypes.TOPIC), key = "*.wechat.#"))
+@RabbitListener(bindings = @QueueBinding(value = @Queue(value = RabbitConfig.WECHAT_QUEUE, durable = "true"), exchange = @Exchange(name = RabbitConfig.EXCHANGE_NAME, durable = "true", type = ExchangeTypes.TOPIC), key = "*.wechat.#"))
 public class TopicWechatReceiver {
     @RabbitHandler
     public void wechatMessage(CustomMessage msg, Channel channel, Message message) throws IOException {

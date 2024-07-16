@@ -16,7 +16,7 @@ import java.io.IOException;
 @Slf4j
 @Service
 //監聽佇列 email-topic-queue
-@RabbitListener(bindings = @QueueBinding(value = @Queue(value = RabbitConfig.EMAIL_QUEUE, durable = "true"), exchange = @Exchange(name = "topic-order-exchange", durable = "true", type = ExchangeTypes.TOPIC), key = "#.email.*"))
+@RabbitListener(bindings = @QueueBinding(value = @Queue(value = RabbitConfig.EMAIL_QUEUE, durable = "true"), exchange = @Exchange(name = RabbitConfig.EXCHANGE_NAME, durable = "true", type = ExchangeTypes.TOPIC), key = "#.email.*"))
 public class TopicEmailReceiver {
 
     @RabbitHandler

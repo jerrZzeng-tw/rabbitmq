@@ -1,9 +1,6 @@
 package com.iisi.rabbitmq.topic;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.ReturnedMessage;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -40,50 +37,50 @@ public class RabbitConfig {
         return new TopicExchange(EXCHANGE_NAME, true, false);
     }
 
-    /**
-     * 2.
-     * 聲明佇列
-     *
-     * @return
-     */
-    @Bean
-    public Queue smsQueue() {
-        /**
-         * Queue建構函式參數說明
-         * 1. 佇列名
-         * 2. 是否持久化 true：持久化 false：不持久化
-         */
-        return new Queue(SMS_QUEUE, true);
-    }
-
-    @Bean
-    public Queue emailQueue() {
-        return new Queue(EMAIL_QUEUE, true);
-    }
-
-    @Bean
-    public Queue wechatQueue() {
-        return new Queue(WECHAT_QUEUE, true);
-    }
-
-    /**
-     * 3.
-     * 佇列與交換機繫結
-     */
-    @Bean
-    public Binding smsBinding() {
-        return BindingBuilder.bind(smsQueue()).to(topicExchange()).with("*.sms.#");
-    }
-
-    @Bean
-    public Binding emailBinding() {
-        return BindingBuilder.bind(emailQueue()).to(topicExchange()).with("#.email.*");
-    }
-
-    @Bean
-    public Binding wechatBinding() {
-        return BindingBuilder.bind(wechatQueue()).to(topicExchange()).with("*.wechat.#");
-    }
+    //    /**
+    //     * 2.
+    //     * 聲明佇列
+    //     *
+    //     * @return
+    //     */
+    //    @Bean
+    //    public Queue smsQueue() {
+    //        /**
+    //         * Queue建構函式參數說明
+    //         * 1. 佇列名
+    //         * 2. 是否持久化 true：持久化 false：不持久化
+    //         */
+    //        return new Queue(SMS_QUEUE, true);
+    //    }
+    //
+    //    @Bean
+    //    public Queue emailQueue() {
+    //        return new Queue(EMAIL_QUEUE, true);
+    //    }
+    //
+    //    @Bean
+    //    public Queue wechatQueue() {
+    //        return new Queue(WECHAT_QUEUE, true);
+    //    }
+    //
+    //    /**
+    //     * 3.
+    //     * 佇列與交換機繫結
+    //     */
+    //    @Bean
+    //    public Binding smsBinding() {
+    //        return BindingBuilder.bind(smsQueue()).to(topicExchange()).with("*.sms.#");
+    //    }
+    //
+    //    @Bean
+    //    public Binding emailBinding() {
+    //        return BindingBuilder.bind(emailQueue()).to(topicExchange()).with("#.email.*");
+    //    }
+    //
+    //    @Bean
+    //    public Binding wechatBinding() {
+    //        return BindingBuilder.bind(wechatQueue()).to(topicExchange()).with("*.wechat.#");
+    //    }
 
 
     @Bean

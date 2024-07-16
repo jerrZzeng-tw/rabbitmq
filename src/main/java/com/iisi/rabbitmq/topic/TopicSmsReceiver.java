@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @Service
 //監聽佇列
-@RabbitListener(bindings = @QueueBinding(value = @Queue(value = RabbitConfig.SMS_QUEUE, durable = "true"), exchange = @Exchange(name = "topic-order-exchange", durable = "true", type = ExchangeTypes.TOPIC), key = "*.sms.#"))
+@RabbitListener(bindings = @QueueBinding(value = @Queue(value = RabbitConfig.SMS_QUEUE, durable = "true"), exchange = @Exchange(name = RabbitConfig.EXCHANGE_NAME, durable = "true", type = ExchangeTypes.TOPIC), key = "*.sms.#"))
 public class TopicSmsReceiver {
 
     @RabbitHandler
