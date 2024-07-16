@@ -90,28 +90,28 @@ public class RabbitConfig {
         rabbitTemplate.setMessageConverter(producerJackson2MessageConverter);
         //設定開啟消息推送結果回呼
         rabbitTemplate.setMandatory(true);
-        //設定ConfirmCallback回呼
+        //設定消息的confirm監聽，監聽消息是否到達exchange
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-                //                log.info("==============ConfirmCallback start ===============");
-                //                log.info("回呼資料：{}", correlationData);
-                //                log.info("確認結果：{}", ack);
-                //                log.info("返回原因：{}", cause);
-                //                log.info("==============ConfirmCallback end =================");
+                log.info("==============ConfirmCallback start 消息到達EXCHANGE ===============");
+                log.info("回呼資料：{}", correlationData);
+                log.info("確認結果：{}", ack);
+                log.info("返回原因：{}", cause);
+                log.info("==============ConfirmCallback end =================================");
             }
         });
-        //設定ReturnCallback回呼
+        //設定消息的return監聽，當消息無法路由到queue時候，會觸發這個監聽。
         rabbitTemplate.setReturnsCallback(new RabbitTemplate.ReturnsCallback() {
             @Override
             public void returnedMessage(ReturnedMessage returnedMessage) {
-                //                log.info("==============ReturnCallback start ===============");
-                //                log.info("傳送消息：{}", returnedMessage.getMessage());
-                //                log.info("回應碼：{}", returnedMessage.getReplyCode());
-                //                log.info("回應訊息：{}", returnedMessage.getReplyText());
-                //                log.info("交換機：{}", returnedMessage.getExchange());
-                //                log.info("路由鍵：{}", returnedMessage.getRoutingKey());
-                //                log.info("==============ReturnCallback end =================");
+                log.info("==============ReturnCallback start EXCHANGE到queue失敗 ===============");
+                log.info("傳送消息：{}", returnedMessage.getMessage());
+                log.info("回應碼：{}", returnedMessage.getReplyCode());
+                log.info("回應訊息：{}", returnedMessage.getReplyText());
+                log.info("交換機：{}", returnedMessage.getExchange());
+                log.info("路由鍵：{}", returnedMessage.getRoutingKey());
+                log.info("==============ReturnCallback end ====================================");
             }
         });
         return rabbitTemplate;
